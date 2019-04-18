@@ -1,0 +1,18 @@
+div.show {
+
+	display:none;
+	font-size: 18px;
+	color: green;
+
+}
+
+div.grades {
+	display:none;
+	font-size: 14px;
+	color: green;
+}
+
+div.show.active {
+
+	display:block;
+}
