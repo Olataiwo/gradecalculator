@@ -7,7 +7,7 @@ include 'includes/header.php';
 include 'includes/db.php';
 include 'includes/functions.php';
 
-LoginCheck();
+// LoginCheck();
 
      $error=[];
      $divnumber = 0;
@@ -66,20 +66,20 @@ LoginCheck();
      $award = "No certificate";
  }
 
- $stmt = $conn->prepare("INSERT INTO courses(oop, mcs, research, cyber_security, business_it, advance_software, dissertation)
- VALUES( :oop, :mcs, :rm, :bi, :asd, :cse, :dis)");
+//  $stmt = $conn->prepare("INSERT INTO courses(oop, mcs, research, cyber_security, business_it, advance_software, dissertation)
+//  VALUES( :oop, :mcs, :rm, :bi, :asd, :cse, :dis)");
 
- $data = [
-	 ':oop'=>$_POST['oop'],
-	 ':mcs'=>$_POST['mcs'],
-	 ':rm'=>$_POST['rm'],
-	 ':bi'=>$_POST['bit'],
-	 ':asd'=>$_POST['asd'],
-	 ':cse'=>$_POST['cse'],
-	 ':dis'=>$_POST['dis']
- ];
+//  $data = [
+// 	 ':oop'=>$_POST['oop'],
+// 	 ':mcs'=>$_POST['mcs'],
+// 	 ':rm'=>$_POST['rm'],
+// 	 ':bi'=>$_POST['bit'],
+// 	 ':asd'=>$_POST['asd'],
+// 	 ':cse'=>$_POST['cse'],
+// 	 ':dis'=>$_POST['dis']
+//  ];
 
- $stmt->execute($data);
+//  $stmt->execute($data);
 
  $array1 = [$_POST['oop'],$_POST['mcs'],$_POST['rm'],$_POST['bit'],$_POST['asd'],$_POST['cse'],$_POST['dis']];
 
@@ -94,15 +94,23 @@ LoginCheck();
 
 ?>
 
+<div class="heading">
+		<h1 class="register-label" id='register-label'>Grade Calculator</h1>
 
-<h1 id='register-label'>Grade Calculator</h1>
-<h3 class = "welcome" ><?php echo "Welcome ". $_SESSION['name']; ?></h3>
-<a href="logout.php">Logout</a>
-<hr>
-		<div class="wrapper">
+		<div class="welcome-logout">
+			<h3 class = "welcome" >
+				<!-- <?php echo "Welcome ". $_SESSION['name']; ?> -->
+				Welcome
+			</h3>
+			<a href="logout.php">Logout</a>
+		</div>
+</div>
+
+
+		<div class="content-wrapper">
 		<form method="post" action="dashboard.php">
-			<table align="center" width="750" border="2" bgcolor="orange">
-				<tr align="center">
+			<table align="center" border="2" bgcolor="orange">
+				<tr align="left">
 				  <th>Course code</th>
 				  <th>Module name</th>
 				  <th>Score</th>
@@ -202,11 +210,13 @@ LoginCheck();
 	                                        </tr>
 
 	                                        <tr align="center">
-	                                          <td colspan="7"><input type="submit" id="submit" name='calculate' value="calculate"></td>
+	                                          <td colspan="7">
+																							<button class="btn" type="submit" id="submit" name='calculate'>Calculate</button>
+																						</td>
 	                                        </tr>				
 			</table>
 		</form>
-</div>
+		</div>
 <?php
 
 	if(!empty($error)){
@@ -253,7 +263,8 @@ if(!empty($array1))
 
 	}
 
-	echo "<table border='1' align='center' width='750'>";
+	echo "<div class='content-wrapper'>
+		<table class='result-table' border='1' align='left'>";
 	echo "<tr>
 	       <th colspan='7'>Result Summary</th>
 	      </tr>
@@ -295,13 +306,15 @@ if(!empty($array1))
 
 
 	
-	echo "</table>";
+	echo "</table></div>";
 	echo "Number of A = ". $plus1 ."\n";
 	echo "Number of B = ". $plus2 ."\n";
 	echo "Number of C= ". $plus3 ."\n";
 	echo "Fail = ". $plus4 ."\n";
-    echo '<p  id="show">Your average score is:' .$average. '</p>';
-    echo '<p>You have have passed'.$totalUnit." units and have been awarded " .$award. " in Computing</p>";
+    echo '<div class="show-results">
+			<p  id="show">Your average score is:' .$average. '</p> </div>';
+    echo '<div class="show-results">
+			<p>You have have passed'.$totalUnit." units and have been awarded " .$award. " in Computing</p> </div>";
 
 	
 }
